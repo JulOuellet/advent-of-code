@@ -45,7 +45,7 @@ fn main() -> std::io::Result<()> {
                 current_calories += line.trim().parse::<i32>().unwrap_or(0);
             }
         });
-    println!("The three elfs carrying the most calories are carrying {} calories!",
+    println!("The three elves carrying the most calories are carrying {} calories!",
              top_three.iter().sum::<i32>());
 
     Ok(())
