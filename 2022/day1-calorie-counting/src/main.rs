@@ -29,7 +29,7 @@ fn main() -> std::io::Result<()> {
 
     /* --- part two --- */
     let mut reader2 = BufReader::new(&file);
-    reader2.get_mut().seek(SeekFrom::Start(0));
+    let _ = reader2.get_mut().seek(SeekFrom::Start(0));
 
     let mut current_calories = 0;
     let mut top_three: Vec<i32> = vec![0, 0, 0];
