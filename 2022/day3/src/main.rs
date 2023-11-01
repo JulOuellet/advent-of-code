@@ -1,21 +1,27 @@
 use std::{
     fs::File,
-    io::{BufReader, BufRead},
+    io::{BufReader, BufRead, Seek, SeekFrom},
     collections::{HashMap, HashSet}
 };
 
 fn main() -> std::io::Result<()> {
     let file = File::open("input.txt")?;
-    let reader = BufReader::new(&file);
-    let mut total_score = 0;
-    
     let priorities = generate_priorities();
 
-    reader.lines()
-        .map(|line| line.expect("Error reading line..."))
-        .for_each(|line| total_score += get_score(&line, &priorities));
+    /* --- part one --- */
+    let reader1 = BufReader::new(&file);
+    let mut total_score_p1 = 0;
 
-    println!("Sum of priorities: {}", total_score);
+    reader1.lines()
+        .map(|line| line.expect("Error reading line..."))
+        .for_each(|line| total_score_p1 += get_score_p1(&line, &priorities));
+    println!("Sum of priorities for part one: {}", total_score_p1);
+
+    /* --- part two ---*/
+    let mut reader2 = BufReader::new(&file);
+    let _ = reader2.get_mut().seek(SeekFrom::Start(0));
+    let mut total_score_p2 = 0;
+
     Ok(())
 }
 
@@ -29,7 +35,7 @@ fn generate_priorities() -> HashMap<char, i32> {
         .collect()
 }
 
-fn get_score(line: &str, priorities: &HashMap<char, i32>) -> i32 {
+fn get_score_p1(line: &str, priorities: &HashMap<char, i32>) -> i32 {
     let mut score = 0;
 
     let middle_idx = line.len() / 2;
