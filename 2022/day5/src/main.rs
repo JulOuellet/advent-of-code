@@ -8,7 +8,37 @@ fn main() -> std::io::Result<()> {
     let reader = BufReader::new(&file);
     
     let lines: Vec<String> = reader.lines().map(|line| line.expect("Error reading line")).collect();
-    let stacks = init_stacks(&lines);
+    let mut stacks = init_stacks(&lines);
+    
+    lines.iter().skip(9)
+        .filter(|line| !line.is_empty())
+        .for_each(|line| {
+            let moves = get_moves(line);
+
+            println!("here");
+            
+            for _ in 0..moves.0 {
+                if let Some(moved_crate) = stacks[moves.1].pop() {
+                    stacks[moves.2].push(moved_crate);
+                } else {
+                    println!("Error moving crates around!");
+                    println!("move {} from {} to {}", moves.0, moves.1, moves.2);
+                }
+            }
+        });
+
+    println!(
+        "The crates on top of each stacks are {:?}{:?}{:?}{:?}{:?}{:?}{:?}{:?}{:?}", 
+        stacks[0].last(),
+        stacks[1].last(),
+        stacks[2].last(),
+        stacks[3].last(),
+        stacks[4].last(),
+        stacks[5].last(),
+        stacks[6].last(),
+        stacks[7].last(),
+        stacks[8].last(),
+        );
     
     Ok(())
 }
@@ -32,5 +62,17 @@ fn init_stacks(lines: &[String]) -> Vec<Vec<char>> {
 
     stacks.iter_mut().for_each(|stack| stack.reverse());
     stacks
+}
+
+fn get_moves(line: &String) -> (usize, usize, usize) {
+    let moves: Vec<i32> = line
+        .replace("move ", "")
+        .replace(" from ", "-")
+        .replace(" to ", "-")
+        .split('-')
+        .filter_map(|s| s.parse::<i32>().ok())
+        .collect();
+    
+    ((moves[0] - 1) as usize, (moves[1] - 1) as usize, (moves[2] - 1) as usize)
 }
 
