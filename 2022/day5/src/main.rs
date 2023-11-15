@@ -8,16 +8,18 @@ fn main() -> std::io::Result<()> {
     let reader = BufReader::new(&file);
     
     let lines: Vec<String> = reader.lines().map(|line| line.expect("Error reading line")).collect();
-    let mut stacks = init_stacks(&lines);
-    
+    let mut stacks_p1 = init_stacks(&lines);
+    let mut stacks_p2 = init_stacks(&lines);
+
+    // Part one
     lines.iter().skip(9)
         .filter(|line| !line.is_empty())
         .for_each(|line| {
             let moves = get_moves(line);
             
             for _ in 0..moves.0 {
-                if let Some(moved_crate) = stacks[moves.1 - 1].pop() {
-                    stacks[moves.2 - 1].push(moved_crate);
+                if let Some(moved_crate) = stacks_p1[moves.1 - 1].pop() {
+                    stacks_p1[moves.2 - 1].push(moved_crate);
                 } else {
                     println!("Error moving crates around!");
                 }
@@ -25,18 +27,52 @@ fn main() -> std::io::Result<()> {
         });
 
     println!(
-        "The crates on top of each stacks are {:?}{:?}{:?}{:?}{:?}{:?}{:?}{:?}{:?}", 
-        stacks[0].last(),
-        stacks[1].last(),
-        stacks[2].last(),
-        stacks[3].last(),
-        stacks[4].last(),
-        stacks[5].last(),
-        stacks[6].last(),
-        stacks[7].last(),
-        stacks[8].last(),
+        "The crates on top of each stacks with CrateMover 9000 are {}{}{}{}{}{}{}{}{}", 
+        stacks_p1[0].last().unwrap(),
+        stacks_p1[1].last().unwrap(),
+        stacks_p1[2].last().unwrap(),
+        stacks_p1[3].last().unwrap(),
+        stacks_p1[4].last().unwrap(),
+        stacks_p1[5].last().unwrap(),
+        stacks_p1[6].last().unwrap(),
+        stacks_p1[7].last().unwrap(),
+        stacks_p1[8].last().unwrap(),
         );
+
+
+    // Part two
+    lines.iter().skip(9)
+        .filter(|line| !line.is_empty())
+        .for_each(|line| {
+            let moves = get_moves(line);
+            let mut lifted_crates: Vec<char> = Vec::new();
+            
+            for _ in 0..moves.0 {
+                if let Some(moved_crate) = stacks_p2[moves.1 - 1].pop() {
+                    lifted_crates.push(moved_crate);
+                } else {
+                    println!("Error lifting crates!")
+                }
+            }
+
+            for _ in 0..moves.0 {
+                stacks_p2[moves.2 - 1].push(lifted_crates.pop().unwrap()); 
+            }
+        });
     
+    println!(
+        "The crates on top of each stacks with CrateMover 9001 are {}{}{}{}{}{}{}{}{}", 
+        stacks_p2[0].last().unwrap(),
+        stacks_p2[1].last().unwrap(),
+        stacks_p2[2].last().unwrap(),
+        stacks_p2[3].last().unwrap(),
+        stacks_p2[4].last().unwrap(),
+        stacks_p2[5].last().unwrap(),
+        stacks_p2[6].last().unwrap(),
+        stacks_p2[7].last().unwrap(),
+        stacks_p2[8].last().unwrap(),
+        );
+
     Ok(())
 }
 
