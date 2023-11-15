@@ -14,15 +14,12 @@ fn main() -> std::io::Result<()> {
         .filter(|line| !line.is_empty())
         .for_each(|line| {
             let moves = get_moves(line);
-
-            println!("here");
             
             for _ in 0..moves.0 {
-                if let Some(moved_crate) = stacks[moves.1].pop() {
-                    stacks[moves.2].push(moved_crate);
+                if let Some(moved_crate) = stacks[moves.1 - 1].pop() {
+                    stacks[moves.2 - 1].push(moved_crate);
                 } else {
                     println!("Error moving crates around!");
-                    println!("move {} from {} to {}", moves.0, moves.1, moves.2);
                 }
             }
         });
@@ -73,6 +70,6 @@ fn get_moves(line: &String) -> (usize, usize, usize) {
         .filter_map(|s| s.parse::<i32>().ok())
         .collect();
     
-    ((moves[0] - 1) as usize, (moves[1] - 1) as usize, (moves[2] - 1) as usize)
+    (moves[0] as usize, moves[1] as usize, moves[2] as usize)
 }
 
