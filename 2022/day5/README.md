@@ -65,7 +65,7 @@ Finally, one crate is moved from stack 1 to stack 2:
 
 The Elves just need to know which crate will end up on top of each stack; in this example, the top crates are C in stack 1, M in stack 2, and Z in stack 3, so you should combine these together and give the Elves the message CMZ.
 
-After the rearrangement procedure completes, what crate ends up on top of each stack?
+**After the rearrangement procedure completes, what crate ends up on top of each stack?**
 
 To begin, get your puzzle input: https://adventofcode.com/2022/day/5/input
 
@@ -127,5 +127,4 @@ Finally, a single crate is still moved from stack 1 to stack 2, but now it's cra
 
 In this example, the CrateMover 9001 has put the crates in a totally different order: MCD.
 
-Before the rearrangement process finishes, update your simulation so that the Elves know where they should stand to be ready to unload the final supplies. After the rearrangement procedure completes, what crate ends up on top of each stack?
-
+Before the rearrangement process finishes, update your simulation so that the Elves know where they should stand to be ready to unload the final supplies. **After the rearrangement procedure completes, what crate ends up on top of each stack?**
