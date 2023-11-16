@@ -30,7 +30,7 @@ This strategy guide predicts and recommends the following:
 
 In this example, if you were to follow the strategy guide, you would get a total score of 15 (8 + 1 + 6).
 
-What would your total score be if everything goes exactly according to your strategy guide?
+**What would your total score be if everything goes exactly according to your strategy guide?**
 
 To begin, get your puzzle input : https://adventofcode.com/2022/day/2/input
 
@@ -46,5 +46,5 @@ The total score is still calculated in the same way, but now you need to figure 
 
 Now that you're correctly decrypting the ultra top secret strategy guide, you would get a total score of 12.
 
-Following the Elf's instructions for the second column, what would your total score be if everything goes exactly according to your strategy guide?
+Following the Elf's instructions for the second column, **what would your total score be if everything goes exactly according to your strategy guide?**
 
