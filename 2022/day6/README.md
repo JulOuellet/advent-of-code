@@ -29,7 +29,7 @@ Here are a few more examples:
 - `nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg`: first marker after character 10
 - `zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw`: first marker after character 11
 
-How many characters need to be processed before the first start-of-packet marker is detected?
+**How many characters need to be processed before the first start-of-packet marker is detected?**
 
 To begin, get your puzzle input: https://adventofcode.com/2022/day/6/input
 
