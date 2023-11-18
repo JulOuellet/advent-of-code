@@ -1,5 +1,7 @@
 # Day 6: Tuning Trouble
 
+### Part 1
+
 The preparations are finally complete; you and the Elves leave camp on foot and begin to make your way toward the star fruit grove.
 
 As you move through the dense undergrowth, one of the Elves gives you a handheld device. He says that it has many fancy features, but the most important one to set up right now is the communication system.
@@ -32,4 +34,20 @@ Here are a few more examples:
 **How many characters need to be processed before the first start-of-packet marker is detected?**
 
 To begin, get your puzzle input: https://adventofcode.com/2022/day/6/input
+
+### Part 2 
+
+Your device's communication system is correctly detecting packets, but still isn't working. It looks like it also needs to look for messages.
+
+A start-of-message marker is just like a start-of-packet marker, except it consists of 14 distinct characters rather than 4.
+
+Here are the first positions of start-of-message markers for all of the above examples:
+
+- `mjqjpqmgbljsphdztnvjfqwrcgsmlb`: first marker after character 19
+- `bvwbjplbgvbhsrlpgdmjqwftvncz`: first marker after character 23
+- `nppdvjthqldpwncqszvftbrmjlhg`: first marker after character 23
+- `nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg`: first marker after character 29
+- `zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw`: first marker after character 26
+
+**How many characters need to be processed before the first start-of-message marker is detected?**
 
