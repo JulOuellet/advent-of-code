@@ -8,22 +8,39 @@ fn main() -> std::io::Result<()> {
     let file = File::open("input.txt")?;
     let reader = BufReader::new(&file);
 
-    let mut char_sequence: VecDeque<char> = VecDeque::new();
-    let mut index = 0;
+    let mut packet_sequence: VecDeque<char> = VecDeque::new();
+    let mut message_sequence: VecDeque<char> = VecDeque::new();
 
     reader.lines()
         .map(|line| line.expect("Error reading line..."))
         .filter(|line| !line.is_empty())
         .for_each(|line| {
-            for character in line.chars() {
-                char_sequence.push_back(character);
-                index += 1;
+            let mut packet_index = 0;
+            let mut message_index = 0;
             
-                if char_sequence.len() > 4 {
-                    char_sequence.pop_front();
+            for character in line.chars() {
+                packet_sequence.push_back(character);
+                packet_index += 1;
+            
+                if packet_sequence.len() > 4 {
+                    packet_sequence.pop_front();
 
-                    if check_squence(&char_sequence) {
-                        println!("First marker detected after character {}", index);
+                    if check_sequence(&packet_sequence, 4) {
+                        println!("First start-of-packet marker detected after character {}", packet_index);
+                        break;
+                    }
+                }
+            }
+
+            for character in line.chars() {
+                message_sequence.push_back(character);
+                message_index += 1;
+
+                if message_sequence.len() > 14 {
+                    message_sequence.pop_front();
+
+                    if check_sequence(&message_sequence, 14) {
+                        println!("First start-of-message marker detected after character {}", message_index);
                         break;
                     }
                 }
@@ -32,10 +49,10 @@ fn main() -> std::io::Result<()> {
     Ok(())
 }
 
-fn check_squence(char_sequence: &VecDeque<char>) -> bool {
+fn check_sequence(char_sequence: &VecDeque<char>, len: usize) -> bool {
     let mut chars: Vec<char> = Vec::new();
 
-    for index in 0..4 {
+    for index in 0..len {
         if let Some(&character) = char_sequence.get(index) {
             if chars.contains(&character) {
                 return false;
