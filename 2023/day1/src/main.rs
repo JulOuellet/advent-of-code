@@ -28,8 +28,7 @@ fn find_numbers_p1(line: &str) -> i32 {
     let first = line.chars().find(|c| c.is_digit(10)).unwrap();
     let last = line.chars().rev().find(|c| c.is_digit(10)).unwrap();
 
-    let combined = format!("{}{}", first, last);
-    combined.parse::<i32>().unwrap_or(0)
+    10 * first.to_digit(10).unwrap() as i32 + last.to_digit(10).unwrap() as i32
 }
     
 fn find_numbers_p2(line: &str) -> i32 {
