@@ -2,11 +2,11 @@ fn main() -> std::io::Result<()> {
     let input = std::fs::read_to_string("input.txt")?;
     let reports = parse_input(&input);
 
-    println!("Part one: {}", part_one(reports));
+    println!("Part one: {}", part_one(&reports));
+    println!("Part two: {}", part_two(&reports));
 
     Ok(())
 }
-
 
 pub fn parse_input(input: &str) -> Vec<Vec<i32>> {
     input
@@ -21,8 +21,33 @@ pub fn parse_input(input: &str) -> Vec<Vec<i32>> {
 }
 
 
-pub fn part_one(reports: Vec<Vec<i32>>) -> i32 {
+pub fn part_one(reports: &Vec<Vec<i32>>) -> i32 {
     reports.iter().filter(|report| is_safe(report)).count() as i32
+}
+
+pub fn part_two(reports: &Vec<Vec<i32>>) -> i32 {
+    reports
+        .iter()
+        .filter(|report| {
+            if is_safe(report) {
+                return true;
+            }
+
+            for i in 0..report.len() {
+                let modified_report: Vec<i32> = report.iter()
+                    .enumerate()
+                    .filter(|&(index, _)| index != i)
+                    .map(|(_, &val)| val)
+                    .collect();
+
+                if is_safe(&modified_report) {
+                    return true;
+                }
+            }
+
+            false
+        })
+    .count() as i32
 }
 
 fn is_safe(report: &Vec<i32>) -> bool {
@@ -42,3 +67,4 @@ fn is_safe(report: &Vec<i32>) -> bool {
 
     false
 }
+
