@@ -17,29 +17,28 @@ pub fn parse_input(input: &str) -> Vec<Vec<i32>> {
                 .map(|num| num.parse().unwrap())
                 .collect()
         })
-        .collect()
+    .collect()
 }
 
 
 pub fn part_one(reports: Vec<Vec<i32>>) -> i32 {
-    let mut safe_reports = 0;
-
-    reports.iter().for_each(|report| {
-        if report.len() == 0 {
-            return;
-        }
-
-        let is_increasing = report.windows(2).all(|w| w[0] < w[1]);
-        let is_decreasing = report.windows(2).all(|w| w[0] > w[1]);
-        let is_bound = report.windows(2).all(|w| (w[0] - w[1]).abs() <= 3 && (w[0] - w[1]).abs() > 0);
-
-        if is_increasing && is_bound {
-            safe_reports += 1;
-        } else if is_decreasing && is_bound {
-            safe_reports += 1;
-        }
-    });
-
-    safe_reports
+    reports.iter().filter(|report| is_safe(report)).count() as i32
 }
 
+fn is_safe(report: &Vec<i32>) -> bool {
+    if report.len() == 0 {
+        return false;
+    }
+
+    let is_increasing = report.windows(2).all(|w| w[0] < w[1]);
+    let is_decreasing = report.windows(2).all(|w| w[0] > w[1]);
+    let is_bound = report.windows(2).all(|w| (w[0] - w[1]).abs() <= 3 && (w[0] - w[1]).abs() > 0);
+
+    if is_increasing && is_bound {
+        return true;
+    } else if is_decreasing && is_bound {
+        return true;
+    }
+
+    false
+}
